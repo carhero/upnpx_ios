@@ -149,6 +149,11 @@
 			attributes = {
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Bruno Keymolen";
+				TargetAttributes = {
+					15055E3C13913F0A003DE49F = {
+						DevelopmentTeam = 9G97QLZLT4;
+					};
+				};
 			};
 			buildConfigurationList = 15055E3713913F0A003DE49F /* Build configuration list for PBXProject "upnpxdemo" */;
 			compatibilityVersion = "Xcode 3.2";
