@@ -9,15 +9,22 @@
 #import <UIKit/UIKit.h>
 
 #import "UPnPDB.h"
+#import "GlobalDBController.h"
 
 @interface RootViewController : UIViewController <UPnPDBObserver, UITableViewDelegate, UITableViewDataSource>{
     UITableView *__weak menuView;
     NSArray *mDevices; //BasicUPnPDevice*
     UILabel *titleLabel;
+    
+    NSArray *mServer;
+    NSArray *mRenderer;
 }
 
 @property (weak) IBOutlet UITableView *menuView;
 @property (strong) UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UITabBar *TabBarCtrl;
+
+@property GlobalDBController * globalConfig;
 
 //protocol UPnPDBObserver
 -(void)UPnPDBWillUpdate:(UPnPDB*)sender;

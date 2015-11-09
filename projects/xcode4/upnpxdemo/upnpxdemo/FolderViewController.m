@@ -74,7 +74,7 @@
     
     
     
-    self.navigationController.toolbarHidden = NO;
+    self.navigationController.toolbarHidden = YES;
     
     
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0 , 11.0f, self.navigationController.view.frame.size.width, 21.0f)];
