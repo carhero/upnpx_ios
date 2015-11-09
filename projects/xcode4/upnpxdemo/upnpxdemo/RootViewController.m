@@ -24,6 +24,9 @@
 {
     [super viewDidLoad];
     
+    self.menuView.dataSource = self;
+    self.menuView.delegate = self;
+    
     UPnPDB* db = [[UPnPManager GetInstance] DB];
     
     mDevices = [db rootDevices]; //BasicUPnPDevice
@@ -37,14 +40,14 @@
     //Search for UPnP Devices 
     [[[UPnPManager GetInstance] SSDP] searchSSDP];      
     
-    self.title = @"upnpx demo - Xcode 4"; 
+    self.title = @"My UPNPX";
     self.navigationController.toolbarHidden = NO;
 
 
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0 , 11.0f, self.navigationController.view.frame.size.width, 21.0f)];
     [self.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
     [self.titleLabel setBackgroundColor:[UIColor clearColor]];
-    [self.titleLabel setTextColor:[UIColor colorWithRed:255.0 green:255.0 blue:255.0 alpha:1.0]];
+    [self.titleLabel setTextColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0]];
     [self.titleLabel setText:@""];
     [self.titleLabel setTextAlignment:NSTextAlignmentLeft];
 
@@ -80,7 +83,10 @@
      [[cell textLabel] setText:[device friendlyName]];
     BOOL isMediaServer = [device.urn isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"];
     cell.accessoryType = isMediaServer ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
-
+   
+    // yhcha, icon image settings
+    cell.imageView.image = device.smallIcon;
+    
     NSLog(@"%ld %@, urn '%@'", (long)indexPath.row, [device friendlyName], device.urn);
 
     return cell;
@@ -89,12 +95,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BasicUPnPDevice *device = mDevices[indexPath.row];
-    if([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"]){
+    if([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"])
+    {
         MediaServer1Device *server = (MediaServer1Device*)device;        
         FolderViewController *targetViewController = [[FolderViewController alloc] initWithMediaDevice:server andHeader:@"root" andRootId:@"0" ];
         [[self navigationController] pushViewController:targetViewController animated:YES];
         [[PlayBack GetInstance] setServer:server];
-    }else if([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaRenderer:1"]){
+    }
+    else if([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaRenderer:1"])
+    {
         [self.titleLabel setText:[device friendlyName]];
         MediaRenderer1Device *render = (MediaRenderer1Device*)device;
         [[PlayBack GetInstance] setRenderer:render];

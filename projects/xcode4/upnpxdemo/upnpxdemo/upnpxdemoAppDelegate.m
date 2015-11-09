@@ -10,17 +10,20 @@
 
 @implementation upnpxdemoAppDelegate
 
-
 @synthesize window=_window;
 
-@synthesize navigationController=_navigationController;
+//@synthesize navigationController=_navigationController;   //yhcha
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+
+#if 0   //yhcha
     // Override point for customization after application launch.
     // Add the navigation controller's view to the window and display.
     self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
+
+#endif
     return YES;
 }
 

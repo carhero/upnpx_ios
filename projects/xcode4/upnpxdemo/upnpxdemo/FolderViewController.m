@@ -59,8 +59,9 @@
     NSMutableString *outUpdateID = [[NSMutableString alloc] init];
     
     [[m_device contentDirectory] BrowseWithObjectID:m_rootId BrowseFlag:@"BrowseDirectChildren" Filter:@"*" StartingIndex:@"0" RequestedCount:@"0" SortCriteria:sortCriteria OutResult:outResult OutNumberReturned:outNumberReturned OutTotalMatches:outTotalMatches OutUpdateID:outUpdateID];
-//    SoapActionsAVTransport1* _avTransport = [m_device avTransport];
-//    SoapActionsConnectionManager1* _connectionManager = [m_device connectionManager];
+    
+    SoapActionsAVTransport1* _avTransport = [m_device avTransport];
+    SoapActionsConnectionManager1* _connectionManager = [m_device connectionManager];
     
     //The collections are returned as DIDL Xml in the string 'outResult'
     //upnpx provide a helper class to parse the DIDL Xml in usable MediaServer1BasicObject object
@@ -77,9 +78,9 @@
     
     
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0 , 11.0f, self.navigationController.view.frame.size.width, 21.0f)];
-    [self.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
+    [self.titleLabel setFont:[UIFont fontWithName:@"Verdana" size:18]];
     [self.titleLabel setBackgroundColor:[UIColor clearColor]];
-    [self.titleLabel setTextColor:[UIColor colorWithRed:255.0 green:255.0 blue:255.0 alpha:1.0]];
+    [self.titleLabel setTextColor:[UIColor colorWithRed:0.0 green:255.0 blue:0.0 alpha:1.0]];
     
     if([[PlayBack GetInstance] renderer] == nil){
         [self.titleLabel setText:@"No Renderer Selected"];        
@@ -127,7 +128,26 @@
     
     cell.accessoryType = item.isContainer ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
     
-    return cell;    
+    // yhcha, icon image settings
+    NSLog(@"item.albumArt = %@", item.albumArt);
+
+#if 0 // 여기를 활성화 하고 Song Play를 시키면 Memory 관련 Fault 가 발생한다.
+    if(item.albumArt != nil)
+    {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            // retrive image on global queue
+            UIImage * img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:item.albumArt]]];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                //CustomTableViewCell * cell = (CustomTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+                // assign cell image on main thread
+                cell.imageView.image = img;
+            });
+        });
+    }
+#endif
+    return cell;
     
 }
 
@@ -142,6 +162,10 @@
         FolderViewController *targetViewController = [[FolderViewController alloc] initWithMediaDevice:m_device andHeader:[container title] andRootId:[container objectID]];
         [[self navigationController] pushViewController:targetViewController animated:YES];
     }else{
+        
+        // UITableView update 필요함.
+        //[tableView reloadData];
+        
         MediaServer1ItemObject *item = m_playList[indexPath.row];
 
         MediaServer1ItemRes *resource = nil;		
