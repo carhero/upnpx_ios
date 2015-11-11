@@ -13,7 +13,6 @@
 #import "NowPlayController.h"
 
 @interface NowPlayController ()
-
 @end
 
 @implementation NowPlayController
@@ -21,11 +20,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     NSLog(@"NowPlayController-viewDidLoadCalled");
     
-    //    BasicUPnPDevice *device = mDevices[indexPath.row];
+    NSString *text = @"imagine this is a huge wall of text\n\n\n";
     
+    [self.label_albume setNumberOfLines:0];
+    [self.label_artist setNumberOfLines:0];
+    [self.label_song setNumberOfLines:0];
+    
+    CGSize labelSize = [text sizeWithFont:self.label_albume.font constrainedToSize:CGSizeMake(280, 240) lineBreakMode:self.label_albume];
+    self.label_albume.frame = CGRectMake(0, 0, 280, labelSize.height);
+    
+    CGSize labelSize1 = [text sizeWithFont:self.label_song.font constrainedToSize:CGSizeMake(280, 240) lineBreakMode:self.label_song];
+    self.label_song.frame = CGRectMake(0, 0, 280, labelSize1.height);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -33,10 +40,10 @@
     [super viewWillAppear:YES];
     self.globalConfig = [GlobalDBController getInstance];
     
-    //    self.globalConfig = [GlobalDBController getInstance];
-    
-    //    BasicUPnPDevice *device = mDevices[self.globalConfig.selectIndex];
-    
+    // albume, artist, song label display
+    self.label_albume.text = self.globalConfig.label_albume;
+    self.label_artist.text = self.globalConfig.label_artist;
+    self.label_song.text = self.globalConfig.label_song;
     
     NSLog(@"self.globalConfig.albumArtUrl : %@", self.globalConfig.albumArtUrl);
     if (self.globalConfig.albumArtUrl != nil)
@@ -46,9 +53,7 @@
             UIImage * img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.globalConfig.albumArtUrl]]];
         
             dispatch_async(dispatch_get_main_queue(), ^{
-                
-                //CustomTableViewCell * cell = (CustomTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-                // assign cell image on main thread
+
                 if(img != nil)
                 {
                     self.imageAlbumArt.image = img;

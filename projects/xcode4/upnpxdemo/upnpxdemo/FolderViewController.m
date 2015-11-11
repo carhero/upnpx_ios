@@ -187,6 +187,15 @@
         //[self.globalConfig setValueArray:item forOption:@"media_data"];
         [self.globalConfig setValue1:indexPath.row forOption:@"select_index"];
         [self.globalConfig setString:item.albumArt forOption:@"albume_art"];
+        
+        NSLog(@"item.album : %@", item.album);
+        NSLog(@"item.artist : %@", item.artist);
+        NSLog(@"item.title : %@", item.title);
+        
+        [self.globalConfig setString:item.album forOption:@"label_albume"];
+        [self.globalConfig setString:item.artist forOption:@"label_artist"];
+        [self.globalConfig setString:item.title forOption:@"label_song"];
+        
         [self.tabBarController setSelectedIndex:1];
     }
 }

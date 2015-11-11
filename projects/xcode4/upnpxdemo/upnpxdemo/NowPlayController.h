@@ -13,7 +13,15 @@
 @interface NowPlayController : UIViewController
 {
     NSArray *mDevices;
+    UILabel *label;
 }
 @property (strong, nonatomic) IBOutlet UIImageView *imageAlbumArt;
 @property GlobalDBController * globalConfig;
+
+@property (weak, nonatomic) IBOutlet UILabel *label_albume;
+@property (weak, nonatomic) IBOutlet UILabel *label_artist;
+@property (weak, nonatomic) IBOutlet UILabel *label_song;
+
+
+
 @end

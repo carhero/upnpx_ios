@@ -14,11 +14,16 @@
     
 }
 
++(GlobalDBController*)getInstance;
+
 @property(nonatomic) NSInteger selectIndex;
 @property(nonatomic, retain) MediaServer1BasicObject *mDevices;
 @property(nonatomic, retain) NSString *albumArtUrl;
 
-+(GlobalDBController*)getInstance;
+@property(nonatomic, retain) NSString *label_albume;
+@property(nonatomic, retain) NSString *label_artist;
+@property(nonatomic, retain) NSString *label_song;
+
 
 -(void) updateValues;
 

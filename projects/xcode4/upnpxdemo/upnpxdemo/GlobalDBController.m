@@ -49,24 +49,10 @@ static GlobalDBController *instance =nil;
     {
         if(instance==nil)
         {
-//            NSDictionary *userDefaultsDefaults = [NSDictionary dictionaryWithObjectsAndKeys:
-//                                                  [NSNumber numberWithBool:YES], @"show_device_name",
-//                                                  [NSNumber numberWithBool:NO], @"open_device_list",
-//                                                  [NSNumber numberWithBool:NO], @"show_sc_pass",
-//                                                  nil];
-//            [[NSUserDefaults standardUserDefaults] registerDefaults:userDefaultsDefaults];
-//            
-//            
-//            
             instance= [GlobalDBController new];
-//
-//            // temp empty device table
-//            NSMutableDictionary *devices = [[NSMutableDictionary alloc] init];
-//            [[NSUserDefaults standardUserDefaults] setObject:devices forKey:@"devices"];
-//            
         }
     }
-//    [instance updateValues];
+    [instance updateValues];
     return instance;
 }
 
@@ -81,14 +67,12 @@ static GlobalDBController *instance =nil;
 -(void) updateValues
 {
     [[NSUserDefaults standardUserDefaults] synchronize];
-//    self.showDeviceName = [[NSUserDefaults standardUserDefaults] boolForKey:@"show_device_name"];
-//    self.openDeviceList = [[NSUserDefaults standardUserDefaults] boolForKey:@"open_device_list"];
-//    self.showScPass = [[NSUserDefaults standardUserDefaults] boolForKey:@"show_sc_pass"];
-//    self.enableOOB = [[NSUserDefaults standardUserDefaults] boolForKey:@"enable_oob"];
-//    self.skipOOB = [[NSUserDefaults standardUserDefaults] boolForKey:@"skip_oob"];
     self.selectIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"select_index"];
-    //self.mDevices = [[NSUserDefaults standardUserDefaults] objectForKey:@"media_data"];
     self.albumArtUrl = [[NSUserDefaults standardUserDefaults] objectForKey:@"albume_art"];
+    
+    self.label_albume = [[NSUserDefaults standardUserDefaults] objectForKey:@"label_albume"];
+    self.label_artist = [[NSUserDefaults standardUserDefaults] objectForKey:@"label_artist"];
+    self.label_song = [[NSUserDefaults standardUserDefaults] objectForKey:@"label_song"];
 }
 
 -(void) setValue:(BOOL)value forOption:(NSString*)name
@@ -123,8 +107,6 @@ static GlobalDBController *instance =nil;
     [devices setValue:device forKey:key];
     [[NSUserDefaults standardUserDefaults] setObject:devices forKey:@"devices"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    
     
 }
 
