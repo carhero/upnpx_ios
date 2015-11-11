@@ -1,30 +1,24 @@
 //
-//  SetupController.m
+//  TestView2.m
 //  upnpxdemo
 //
-//  Created by Cha YoungHoon on 11/9/15.
+//  Created by Cha YoungHoon on 11/11/15.
 //  Copyright © 2015 Bruno Keymolen. All rights reserved.
 //
 
-#import "SetupController.h"
+#import "TestView2.h"
 
-@interface SetupController ()
+@interface TestView2 ()
 
 @end
 
-@implementation SetupController
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:YES];
-    //self.navigationController.navigationBarHidden = NO;
-}
+@implementation TestView2
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    NSLog(@"Setup-viewDidload");
+    NSLog(@"TestView2-viewDidLoad");
 }
 
 - (void)didReceiveMemoryWarning {

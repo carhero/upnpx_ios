@@ -27,6 +27,10 @@
         m_title=header;
         
         m_playList = [[NSMutableArray alloc] init];
+        
+        self.globalConfig = [GlobalDBController getInstance];
+        //yhcha add
+        //[self.globalConfig setValue1:indexPath.row forOption:@"select_index"];
     }
 
     return self;
@@ -41,6 +45,8 @@
 {
     
     [super viewDidLoad];
+    self.globalConfig = [GlobalDBController getInstance];
+    
     
     // Before we do anything, some devices do not support sorting and will fail if we try to sort on our request
     NSString *sortCriteria = @"";
@@ -131,7 +137,7 @@
     // yhcha, icon image settings
     NSLog(@"item.albumArt = %@", item.albumArt);
 
-#if 0 // 여기를 활성화 하고 Song Play를 시키면 Memory 관련 Fault 가 발생한다.
+#if 1 // 여기를 활성화 하고 Song Play를 시키면 Memory 관련 Fault 가 발생한다.
     if(item.albumArt != nil)
     {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -157,6 +163,7 @@
 {
     
     MediaServer1BasicObject *item = m_playList[indexPath.row];
+    
     if([item isContainer]){
         MediaServer1ContainerObject *container = m_playList[indexPath.row];
         FolderViewController *targetViewController = [[FolderViewController alloc] initWithMediaDevice:m_device andHeader:[container title] andRootId:[container objectID]];
@@ -176,6 +183,11 @@
 
         [[PlayBack GetInstance] Play:m_playList position:indexPath.row];
         
+        // yhcha, save media data
+        //[self.globalConfig setValueArray:item forOption:@"media_data"];
+        [self.globalConfig setValue1:indexPath.row forOption:@"select_index"];
+        [self.globalConfig setString:item.albumArt forOption:@"albume_art"];
+        [self.tabBarController setSelectedIndex:1];
     }
 }
 

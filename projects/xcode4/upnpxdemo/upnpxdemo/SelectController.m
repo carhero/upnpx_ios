@@ -6,30 +6,26 @@
 //  Copyright © 2015 Bruno Keymolen. All rights reserved.
 //
 #import "RootViewController.h"
-#import "SelectController.h"
 #import "GlobalDBController.h"
+
+#import "SelectController.h"
 
 @interface SelectController ()
 {
     //    NSMutableArray *_object;
+    NSInteger viewCnt;
 }
 @end
 
 @implementation SelectController
 
-@synthesize selectMenuView;
-
+//@synthesize selectMenuView;
+//@synthesize selectView;
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    NSLog(@"selectMenuView-viewWillAppear");
-    
-    //    if (_object.count == 0) {
-    //        _object = [[NSMutableArray alloc]initWithObjects:@"AVR DEMO",nil];
-    //    }
-    //
-    //    [self.selectMenuView reloadData];
+    self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)viewDidLoad {
@@ -38,93 +34,37 @@
     
     self.globalConfig = [GlobalDBController getInstance];
     
-    self.selectMenuView.dataSource = self;
-    self.selectMenuView.delegate = self;
-    
-    selectItems = [[NSArray alloc]init];
-    
-    //    selectItems add
-    //    _object = []
-//    if (_object.count == 0) {
-//        _object = [[NSMutableArray alloc]initWithObjects:@"AVR DEMO",nil];
-//    }
-    _object = [[NSMutableArray alloc]init];
-    [_object addObject:@"Select Source"];
-    [_object addObject:@"Select Speaier"];
-    [_object addObject:@"Browse song list"];
-    
-    [self.selectMenuView reloadData];
-    //    _object = [[NSMutableArray alloc]arrayWithObjects:@"11111111", nil];
-    
-    
-    
+    // 최초 실행 page는 이 navigation tab bar가 필요없다.
+
 }
+
+- (IBAction)buttonDMSClicked:(id)sender {
+    NSLog(@"buttonDMSClicked");
+    
+    RootViewController *rootView = [self.storyboard instantiateViewControllerWithIdentifier:@"RootView"];
+    [self.navigationController pushViewController:rootView animated:YES];
+}
+
+- (IBAction)buttonDMRClicked:(id)sender {
+    
+    NSLog(@"buttonDMRClicked");
+    UIViewController *uiView = [[UIViewController alloc]init];
+    [self.navigationController pushViewController:uiView animated:YES];
+}
+
+- (IBAction)buttonBrowseClicked:(id)sender {
+    
+    NSLog(@"buttonBrowseClicked");
+//    UIViewController *uiView = [[UIViewController alloc]init];
+//    [self.navigationController pushViewController:uiView animated:YES];
+//    [self.tabBarController setSelectedIndex:1];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-// Customize the number of sections in the table view.
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return [_object count];
-}
-
-// Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-    
-    [[cell textLabel] setText:[_object objectAtIndex:indexPath.row]];
-    // Configure the cell.
-    //    BasicUPnPDevice *device = mDevices[indexPath.row];
-    //    [[cell textLabel] setText:[device friendlyName]];
-    //    BOOL isMediaServer = [device.urn isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"];
-    //    cell.accessoryType = isMediaServer ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
-    
-    // yhcha, icon image settings
-    //    cell.imageView.image = device.smallIcon;
-    
-    //    NSLog(@"%ld %@, urn '%@'", (long)indexPath.row, [device friendlyName], device.urn);
-    
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    //    BasicUPnPDevice *device = mDevices[indexPath.row];
-    //    if([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaServer:1"])
-    //    {
-    //        MediaServer1Device *server = (MediaServer1Device*)device;
-    //        FolderViewController *targetViewController = [[FolderViewController alloc] initWithMediaDevice:server andHeader:@"root" andRootId:@"0" ];
-    //        [[self navigationController] pushViewController:targetViewController animated:YES];
-    //        [[PlayBack GetInstance] setServer:server];
-    //    }
-    //    else if([[device urn] isEqualToString:@"urn:schemas-upnp-org:device:MediaRenderer:1"])
-    //    {
-    //        [self.titleLabel setText:[device friendlyName]];
-    //        MediaRenderer1Device *render = (MediaRenderer1Device*)device;
-    //        [[PlayBack GetInstance] setRenderer:render];
-    //    }
-    
-    [self.globalConfig setValue1:indexPath.row forOption:@"select_index"];
-    
-    RootViewController *rootViewCtrl = [self.storyboard instantiateViewControllerWithIdentifier:@"RootViewController"];
-//    [CtrlView updateModelType:[self getAvrModelTypeWithFriendlyName:[_objects objectAtIndex:[indexPath row]]]];
-    [self.navigationController pushViewController:rootViewCtrl animated:NO];
-}
-
 
 /*
  #pragma mark - Navigation

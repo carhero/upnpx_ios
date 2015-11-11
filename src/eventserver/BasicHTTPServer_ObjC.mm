@@ -90,8 +90,10 @@ public:
         }
     }
 
-    bool Request(char *senderIP, unsigned short senderPort, string *method, string *path, string *version, map<string, string> *headers, char *body, int bodylen){
+    bool Request(char *senderIP, unsigned short senderPort, string *method, string *path, string *version, map<string, string> *headers, char *body, double bodylen){
 
+        NSLog(@"bodylen : %f",bodylen);
+#if 1   // yhcha, block
         @autoreleasepool {
             NSString *oMethod = [[NSString alloc] initWithCString:method->c_str() encoding:NSASCIIStringEncoding];
             NSString *oPath = [[NSString alloc] initWithCString:path->c_str() encoding:NSASCIIStringEncoding];
@@ -108,6 +110,7 @@ public:
             }
             NSData *oBody = nil;
             if(bodylen >= 0){
+                NSLog(@"bodylen : %f",bodylen);
                 oBody = [[NSData alloc] initWithBytes:body length:bodylen];
             }
 
@@ -127,6 +130,7 @@ public:
 
             return (ret==YES? true: false);
         }
+#endif
     }
 
     bool Response(int *returncode, map<string, string> *headers, char **body, unsigned long *bodylen){

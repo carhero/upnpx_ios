@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NowPlayController : UIViewController
+#import "GlobalDBController.h"
 
+@interface NowPlayController : UIViewController
+{
+    NSArray *mDevices;
+}
+@property (strong, nonatomic) IBOutlet UIImageView *imageAlbumArt;
+@property GlobalDBController * globalConfig;
 @end

@@ -87,6 +87,8 @@ static GlobalDBController *instance =nil;
 //    self.enableOOB = [[NSUserDefaults standardUserDefaults] boolForKey:@"enable_oob"];
 //    self.skipOOB = [[NSUserDefaults standardUserDefaults] boolForKey:@"skip_oob"];
     self.selectIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"select_index"];
+    //self.mDevices = [[NSUserDefaults standardUserDefaults] objectForKey:@"media_data"];
+    self.albumArtUrl = [[NSUserDefaults standardUserDefaults] objectForKey:@"albume_art"];
 }
 
 -(void) setValue:(BOOL)value forOption:(NSString*)name
@@ -100,7 +102,18 @@ static GlobalDBController *instance =nil;
 {
     [[NSUserDefaults standardUserDefaults] setInteger:value forKey:name];
     [self updateValues];
-    
+}
+
+-(void) setString:(NSString *)value forOption:(NSString*)name
+{
+    [[NSUserDefaults standardUserDefaults] setObject:value forKey:name];
+    [self updateValues];
+}
+
+-(void) setValueArray:(MediaServer1BasicObject*)value forOption:(NSString*)name
+{
+    [[NSUserDefaults standardUserDefaults] setObject:value forKey:name];
+    [self updateValues];
 }
 
 -(void) addDevice:(NSDictionary * )device withKey:(NSString *)key

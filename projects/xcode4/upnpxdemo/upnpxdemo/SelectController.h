@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "GlobalDBController.h"
-@interface SelectController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface SelectController : UIViewController /*<UITableViewDelegate, UITableViewDataSource>*/
 {
     UITableView *selectMenuView;
     NSArray *selectItems;
@@ -16,6 +16,7 @@
     
 }
 @property GlobalDBController * globalConfig;
-@property (strong, nonatomic) IBOutlet UITableView *selectMenuView;
+//@property (strong, nonatomic) IBOutlet UITableView *selectMenuView;
+//@property (strong, nonatomic) IBOutlet UIView *selectView;
 
 @end

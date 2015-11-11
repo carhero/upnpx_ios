@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "MediaServer1Device.h"
 
+#import "GlobalDBController.h"
+
 @interface FolderViewController : UITableViewController {
     NSString *m_rootId;
     NSString *m_title;
@@ -18,7 +20,7 @@
 }
 
 @property (strong) UILabel *titleLabel;
-
+@property GlobalDBController * globalConfig;
 -(instancetype)initWithMediaDevice:(MediaServer1Device*)device andHeader:(NSString*)header andRootId:(NSString*)rootId NS_DESIGNATED_INITIALIZER;
 
 @end

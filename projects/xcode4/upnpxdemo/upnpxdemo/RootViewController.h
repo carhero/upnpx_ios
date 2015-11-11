@@ -23,6 +23,7 @@
 @property (weak) IBOutlet UITableView *menuView;
 @property (strong) UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UITabBar *TabBarCtrl;
+@property (strong, nonatomic) IBOutlet UIView *selectView;
 
 @property GlobalDBController * globalConfig;
 
