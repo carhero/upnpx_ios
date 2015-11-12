@@ -14,6 +14,8 @@
 {
     NSArray *mDevices;
     UILabel *label;
+    BOOL updateTimer;
+    NSInteger elapsedTimeCnt;
 }
 @property (strong, nonatomic) IBOutlet UIImageView *imageAlbumArt;
 @property GlobalDBController * globalConfig;
@@ -21,7 +23,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *label_albume;
 @property (weak, nonatomic) IBOutlet UILabel *label_artist;
 @property (weak, nonatomic) IBOutlet UILabel *label_song;
+@property (strong, nonatomic) IBOutlet UISlider *volume_slider;
 
+@property (strong, nonatomic) IBOutlet UISlider *elapsedSlider;
+@property (strong, nonatomic) IBOutlet UILabel *elsedTimeLabel;
+@property (strong, nonatomic) IBOutlet UILabel *totalTimeLabel;
 
 
 @end

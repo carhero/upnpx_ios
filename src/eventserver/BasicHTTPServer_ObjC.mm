@@ -93,7 +93,7 @@ public:
     bool Request(char *senderIP, unsigned short senderPort, string *method, string *path, string *version, map<string, string> *headers, char *body, double bodylen){
 
         NSLog(@"bodylen : %f",bodylen);
-#if 1   // yhcha, block
+#if 1   // yhcha, crash되는 원인 파악해 보기, 추측하건데, 다른 Thread에서 작업중인데 Accessing을 해서 그런것 같음.
         @autoreleasepool {
             NSString *oMethod = [[NSString alloc] initWithCString:method->c_str() encoding:NSASCIIStringEncoding];
             NSString *oPath = [[NSString alloc] initWithCString:path->c_str() encoding:NSASCIIStringEncoding];
@@ -111,7 +111,9 @@ public:
             NSData *oBody = nil;
             if(bodylen >= 0){
                 NSLog(@"bodylen : %f",bodylen);
-                oBody = [[NSData alloc] initWithBytes:body length:bodylen];
+                if (body != nil) {
+                    oBody = [[NSData alloc] initWithBytes:body length:bodylen];
+                }
             }
 
             BOOL ret = NO;

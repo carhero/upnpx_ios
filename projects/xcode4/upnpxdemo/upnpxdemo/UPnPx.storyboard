@@ -119,11 +119,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="PlayButton.png" translatesAutoresizingMaskIntoConstraints="NO" id="wDx-re-dTx">
-                                <rect key="frame" x="20" y="28" width="280" height="261"/>
+                                <rect key="frame" x="20" y="47" width="280" height="257"/>
                                 <animations/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LMZ-5o-ddc">
-                                <rect key="frame" x="135" y="409" width="50" height="48"/>
+                                <rect key="frame" x="135" y="415" width="50" height="48"/>
                                 <animations/>
                                 <accessibility key="accessibilityConfiguration" label="Play"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -135,9 +135,12 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="playPause:" destination="h5c-6t-uMw" eventType="touchUpInside" id="flz-jd-FY9"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ppz-83-MXB">
-                                <rect key="frame" x="193" y="409" width="50" height="48"/>
+                                <rect key="frame" x="193" y="415" width="50" height="48"/>
                                 <animations/>
                                 <accessibility key="accessibilityConfiguration" label="Skip"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -148,9 +151,12 @@
                                 <state key="highlighted" image="Controls_Skip_Pressed.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="playNext:" destination="h5c-6t-uMw" eventType="touchUpInside" id="Ce1-pa-XQD"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tym-am-Xwz">
-                                <rect key="frame" x="20" y="409" width="36" height="48"/>
+                                <rect key="frame" x="20" y="415" width="36" height="48"/>
                                 <animations/>
                                 <accessibility key="accessibilityConfiguration" label="Skip"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -161,60 +167,70 @@
                                 <state key="highlighted" image="Controls_Skip_Pressed.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="repeatAll:" destination="h5c-6t-uMw" eventType="touchUpInside" id="1WC-Cn-Uf6"/>
+                                </connections>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="AFx-BX-cqO">
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="100" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AFx-BX-cqO">
                                 <rect key="frame" x="18" y="477" width="284" height="29"/>
+                                <animations/>
+                                <connections>
+                                    <action selector="sliderSetVolumeControl:" destination="h5c-6t-uMw" eventType="valueChanged" id="vxr-jM-uDn"/>
+                                </connections>
+                            </slider>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="100" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zKj-8d-R9s">
+                                <rect key="frame" x="51" y="20" width="219" height="29"/>
                                 <animations/>
                             </slider>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="teo-t0-QmC">
-                                <rect key="frame" x="20" y="297" width="280" height="94"/>
+                                <rect key="frame" x="20" y="312" width="280" height="94"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.83118127327555136" green="0.88297789487365042" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Albume:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pVG-pd-Pce">
-                                <rect key="frame" x="20" y="304" width="58" height="21"/>
+                                <rect key="frame" x="20" y="319" width="58" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Artist :" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ysN-cK-ucY">
-                                <rect key="frame" x="20" y="333" width="58" height="21"/>
+                                <rect key="frame" x="20" y="348" width="58" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Song :" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pAZ-A2-KoO">
-                                <rect key="frame" x="20" y="362" width="58" height="21"/>
+                                <rect key="frame" x="20" y="377" width="58" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Let it be" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KYk-oj-JG1">
-                                <rect key="frame" x="78" y="304" width="222" height="21"/>
+                                <rect key="frame" x="78" y="319" width="222" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Betelse" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pLJ-IR-MfC">
-                                <rect key="frame" x="78" y="333" width="222" height="21"/>
+                                <rect key="frame" x="78" y="348" width="222" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Yesterday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uSV-fN-Rst">
-                                <rect key="frame" x="78" y="362" width="222" height="21"/>
+                                <rect key="frame" x="78" y="377" width="222" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lyp-kM-OFi">
-                                <rect key="frame" x="77" y="409" width="50" height="48"/>
+                                <rect key="frame" x="77" y="415" width="50" height="48"/>
                                 <animations/>
                                 <accessibility key="accessibilityConfiguration" label="Previous song"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -225,9 +241,12 @@
                                 <state key="highlighted" image="Controls_Rewind_Pressed.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="playPrev:" destination="h5c-6t-uMw" eventType="touchUpInside" id="wX6-7l-qPc"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7UX-g2-wOi">
-                                <rect key="frame" x="264" y="409" width="36" height="48"/>
+                                <rect key="frame" x="264" y="415" width="36" height="48"/>
                                 <animations/>
                                 <accessibility key="accessibilityConfiguration" label="Skip"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -238,7 +257,24 @@
                                 <state key="highlighted" image="Controls_Skip_Pressed.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="shuffle:" destination="h5c-6t-uMw" eventType="touchUpInside" id="819-pG-yJq"/>
+                                </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="guW-70-bQF">
+                                <rect key="frame" x="11" y="28" width="58" height="16"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="05:11" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lld-ag-CC2">
+                                <rect key="frame" x="243" y="28" width="67" height="16"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -246,10 +282,14 @@
                     <tabBarItem key="tabBarItem" title="Nowplay" id="D3k-2d-JOU"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="elapsedSlider" destination="zKj-8d-R9s" id="Efe-xr-TIm"/>
+                        <outlet property="elsedTimeLabel" destination="guW-70-bQF" id="rDy-4H-KDs"/>
                         <outlet property="imageAlbumArt" destination="wDx-re-dTx" id="9cP-0p-7tn"/>
                         <outlet property="label_albume" destination="KYk-oj-JG1" id="yQP-HA-lO4"/>
                         <outlet property="label_artist" destination="pLJ-IR-MfC" id="WBV-p5-AQ4"/>
                         <outlet property="label_song" destination="uSV-fN-Rst" id="KL1-vu-jqv"/>
+                        <outlet property="totalTimeLabel" destination="Lld-ag-CC2" id="jBD-d7-ssr"/>
+                        <outlet property="volume_slider" destination="AFx-BX-cqO" id="ZH2-Nk-pGv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O97-gi-cR3" userLabel="First Responder" sceneMemberID="firstResponder"/>

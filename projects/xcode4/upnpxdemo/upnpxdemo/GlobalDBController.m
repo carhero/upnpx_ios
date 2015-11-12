@@ -51,6 +51,11 @@ static GlobalDBController *instance =nil;
         {
             instance= [GlobalDBController new];
         }
+        
+        if (instance.mediaRenderer == nil)
+        {
+            instance.mediaRenderer = [[MediaRenderer1Device alloc]init];
+        }
     }
     [instance updateValues];
     return instance;
@@ -73,6 +78,8 @@ static GlobalDBController *instance =nil;
     self.label_albume = [[NSUserDefaults standardUserDefaults] objectForKey:@"label_albume"];
     self.label_artist = [[NSUserDefaults standardUserDefaults] objectForKey:@"label_artist"];
     self.label_song = [[NSUserDefaults standardUserDefaults] objectForKey:@"label_song"];
+    
+//    self.mediaRenderer = [[NSUserDefaults standardUserDefaults] objectForKey:@"media_renderer"];
 }
 
 -(void) setValue:(BOOL)value forOption:(NSString*)name
@@ -94,7 +101,7 @@ static GlobalDBController *instance =nil;
     [self updateValues];
 }
 
--(void) setValueArray:(MediaServer1BasicObject*)value forOption:(NSString*)name
+-(void) setMediaRendererDevice:(MediaServer1BasicObject*)value forOption:(NSString*)name
 {
     [[NSUserDefaults standardUserDefaults] setObject:value forKey:name];
     [self updateValues];

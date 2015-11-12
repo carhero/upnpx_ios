@@ -9,11 +9,18 @@
 #import "UPnPManager.h"
 #import "FolderViewController.h"
 #import "PlayBack.h"
-
+#import "SoapActionsRenderingControl1.h"
+#import "NSString+TimeToString.h"
 #import "NowPlayController.h"
 
 @interface NowPlayController ()
 @end
+
+
+extern MediaRenderer1Device *mRenderer1;
+
+extern MediaServer1ItemObject *mItem;
+extern MediaServer1ItemRes *mResource;
 
 @implementation NowPlayController
 
@@ -33,6 +40,16 @@
     
     CGSize labelSize1 = [text sizeWithFont:self.label_song.font constrainedToSize:CGSizeMake(280, 240) lineBreakMode:self.label_song];
     self.label_song.frame = CGRectMake(0, 0, 280, labelSize1.height);
+    
+//    self.volume_slider
+
+    [NSTimer scheduledTimerWithTimeInterval:1.0
+                                     target:self
+                                   selector:@selector(elapsedTimer:)
+                                   userInfo:nil
+                                    repeats:YES];
+    
+    updateTimer = FALSE;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -51,9 +68,9 @@
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             // retrive image on global queue
             UIImage * img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.globalConfig.albumArtUrl]]];
-        
+            
             dispatch_async(dispatch_get_main_queue(), ^{
-
+                
                 if(img != nil)
                 {
                     self.imageAlbumArt.image = img;
@@ -69,12 +86,83 @@
         self.imageAlbumArt.image = [UIImage imageNamed:@"defaultSong.jpg"];
     }
     
+    updateTimer = TRUE;
+    
+    elapsedTimeCnt = 0;
+    self.elsedTimeLabel.text = [NSString stringFromTime:0];
+    self.totalTimeLabel.text = [NSString stringFromTime:mItem.durationInSeconds];
+
+    self.elapsedSlider.minimumValue = 0;
+    self.elapsedSlider.maximumValue = mItem.durationInSeconds;
 }
+
+-(void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:YES];
+    
+    updateTimer = FALSE;
+
+}
+
+-(void)elapsedTimer:(id)sender
+{
+//    if (!updateTimer) {
+//        return;
+//    }
+    
+    if (elapsedTimeCnt <= mItem.durationInSeconds) {
+        elapsedTimeCnt += 1;
+        
+        [self.elapsedSlider setValue:elapsedTimeCnt animated:YES];
+        self.elsedTimeLabel.text = [NSString stringFromTime:elapsedTimeCnt];
+    }
+    
+    NSLog(@"mResource.durationInSeconds:%d", [mItem durationInSeconds]);
+//    NSLog(@"size:%@", [mItem size]);
+    NSLog(@"duration%@", [mItem duration]);
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+- (IBAction)sliderSetVolumeControl:(UISlider *)sender {
+    
+    int volumeTrans = sender.value;
+    NSString *volume = [NSString stringWithFormat:@"%d",volumeTrans];
+    NSLog(@"volume : %@", volume);
+    
+    if (mRenderer1 != nil) {
+        [mRenderer1.renderingControl SetVolumeWithInstanceID:@"0" Channel:@"Master" DesiredVolume:volume];
+    }
+}
+
+- (IBAction)playNext:(id)sender {
+    NSLog(@"playNext");
+}
+
+- (IBAction)playPrev:(id)sender {
+    NSLog(@"playPrev");
+}
+
+- (IBAction)playPause:(id)sender {
+    NSLog(@"playPause");
+}
+
+- (IBAction)repeatAll:(id)sender {
+    NSLog(@"repeatAll");
+}
+
+- (IBAction)shuffle:(id)sender {
+    
+    NSLog(@"shuffle");
+}
+
+
+
 
 /*
  #pragma mark - Navigation

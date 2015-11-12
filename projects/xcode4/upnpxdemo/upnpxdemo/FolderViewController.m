@@ -13,6 +13,10 @@
 #import "MediaServer1ContainerObject.h"
 #import "PlayBack.h"
 
+
+MediaServer1ItemObject *mItem;
+MediaServer1ItemRes *mResource;
+
 @implementation FolderViewController
 
 @synthesize titleLabel;
@@ -102,6 +106,8 @@
     
     self.title = m_title;    
     
+//    mItem = [[MediaServer1ItemObject alloc]init];
+//    mResource = [[MediaServer1ItemRes alloc]init];
 }
 
 #pragma mark - Table view data source
@@ -174,10 +180,13 @@
         //[tableView reloadData];
         
         MediaServer1ItemObject *item = m_playList[indexPath.row];
-
+        mItem = m_playList[indexPath.row];
+        
         MediaServer1ItemRes *resource = nil;		
         NSEnumerator *e = [[item resources] objectEnumerator];
         while((resource = (MediaServer1ItemRes*)[e nextObject])){
+            
+            mResource = (MediaServer1ItemRes*)[e nextObject];
             NSLog(@"%@ - %d, %@, %d, %lld, %d, %@", [item title], [resource bitrate], [resource duration], [resource nrAudioChannels], [resource size],  [resource durationInSeconds],  [resource protocolInfo] );
         }	    
 
@@ -195,6 +204,10 @@
         [self.globalConfig setString:item.album forOption:@"label_albume"];
         [self.globalConfig setString:item.artist forOption:@"label_artist"];
         [self.globalConfig setString:item.title forOption:@"label_song"];
+        
+        // to save global class variable
+        
+        
         
         [self.tabBarController setSelectedIndex:1];
     }

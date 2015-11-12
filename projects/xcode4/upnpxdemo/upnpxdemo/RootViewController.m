@@ -12,8 +12,11 @@
 #import "PlayBack.h"
 
 @interface RootViewController() <UPnPDBObserver>
-
+    
 @end
+
+
+MediaRenderer1Device *mRenderer1;
 
 @implementation RootViewController
 
@@ -46,7 +49,7 @@
     
     [db addObserver:self];
     
-    [self.globalConfig setValueArray:mDevices forOption:@"device_index"];
+    //[self.globalConfig setValueArray:mDevices forOption:@"device_index"];
     
     //Optional; set User Agent
     [[[UPnPManager GetInstance] SSDP] setUserAgentProduct:@"upnpxdemo/1.0" andOS:@"OSX"];
@@ -123,6 +126,9 @@
         [self.titleLabel setText:[device friendlyName]];
         MediaRenderer1Device *render = (MediaRenderer1Device*)device;
         [[PlayBack GetInstance] setRenderer:render];
+        
+        mRenderer1 = (MediaRenderer1Device*)device; // global variable용
+        //[self.globalConfig setMediaRendererDevice:(MediaRenderer1Device*)device forOption:@"media_renderer"];     // error 발생
     }
 }
 

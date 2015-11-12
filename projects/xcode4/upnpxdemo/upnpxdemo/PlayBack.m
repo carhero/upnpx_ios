@@ -105,6 +105,8 @@ static PlayBack *_playback = nil;
         [[renderer avTransport] SetAVTransportURIWithInstanceID:iid CurrentURI:uri CurrentURIMetaData:@""];
         [[renderer avTransport] PlayWithInstanceID:iid Speed:@"1"];        
         
+        // yhcha test volume : It is OK.
+        //[renderer.renderingControl SetVolumeWithInstanceID:@"0" Channel:@"Master" DesiredVolume:@"50"];
     }
     
     return 0;

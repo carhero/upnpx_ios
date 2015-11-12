@@ -56,6 +56,7 @@
 		2D26D6841BF34BDA0084EC18 /* Track_Shuffle_Off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D26D66A1BF34BDA0084EC18 /* Track_Shuffle_Off@2x.png */; };
 		2D26D6851BF34BDA0084EC18 /* Track_Shuffle_On.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D26D66B1BF34BDA0084EC18 /* Track_Shuffle_On.png */; };
 		2D26D6861BF34BDA0084EC18 /* Track_Shuffle_On@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D26D66C1BF34BDA0084EC18 /* Track_Shuffle_On@2x.png */; };
+		2D26D6891BF4AAAC0084EC18 /* NSString+TimeToString.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D26D6881BF4AAAC0084EC18 /* NSString+TimeToString.m */; };
 		9E3614631941520800CBF65D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E3614621941520800CBF65D /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
@@ -122,6 +123,8 @@
 		2D26D66A1BF34BDA0084EC18 /* Track_Shuffle_Off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Track_Shuffle_Off@2x.png"; sourceTree = "<group>"; };
 		2D26D66B1BF34BDA0084EC18 /* Track_Shuffle_On.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Track_Shuffle_On.png; sourceTree = "<group>"; };
 		2D26D66C1BF34BDA0084EC18 /* Track_Shuffle_On@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Track_Shuffle_On@2x.png"; sourceTree = "<group>"; };
+		2D26D6871BF4AAAC0084EC18 /* NSString+TimeToString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TimeToString.h"; sourceTree = "<group>"; };
+		2D26D6881BF4AAAC0084EC18 /* NSString+TimeToString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TimeToString.m"; sourceTree = "<group>"; };
 		9E3614621941520800CBF65D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -187,6 +190,8 @@
 				155AC14E1502F87C00817BD9 /* PlayBack.m */,
 				2D26D6431BF094130084EC18 /* GlobalDBController.h */,
 				2D26D6441BF094130084EC18 /* GlobalDBController.m */,
+				2D26D6871BF4AAAC0084EC18 /* NSString+TimeToString.h */,
+				2D26D6881BF4AAAC0084EC18 /* NSString+TimeToString.m */,
 				2D26D6481BF2EC000084EC18 /* TestView1.h */,
 				2D26D6491BF2EC000084EC18 /* TestView1.m */,
 				2D26D64B1BF2EC120084EC18 /* TestView2.h */,
@@ -360,6 +365,7 @@
 				2D1BCA571BF06AB000E10019 /* SelectController.m in Sources */,
 				155126E613BF4AF90042DEBF /* FolderViewController.m in Sources */,
 				2D26D64D1BF2EC120084EC18 /* TestView2.m in Sources */,
+				2D26D6891BF4AAAC0084EC18 /* NSString+TimeToString.m in Sources */,
 				155AC14F1502F87C00817BD9 /* PlayBack.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
