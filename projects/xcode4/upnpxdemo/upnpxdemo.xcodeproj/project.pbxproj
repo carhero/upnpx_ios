@@ -57,6 +57,9 @@
 		2D26D6851BF34BDA0084EC18 /* Track_Shuffle_On.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D26D66B1BF34BDA0084EC18 /* Track_Shuffle_On.png */; };
 		2D26D6861BF34BDA0084EC18 /* Track_Shuffle_On@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D26D66C1BF34BDA0084EC18 /* Track_Shuffle_On@2x.png */; };
 		2D26D6891BF4AAAC0084EC18 /* NSString+TimeToString.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D26D6881BF4AAAC0084EC18 /* NSString+TimeToString.m */; };
+		2D26D68F1BF5A4450084EC18 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D26D68E1BF5A4450084EC18 /* home.png */; };
+		2D26D6911BF5A4A10084EC18 /* nowplaying.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D26D6901BF5A4A10084EC18 /* nowplaying.png */; };
+		2D26D6931BF5A52F0084EC18 /* setup.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D26D6921BF5A52F0084EC18 /* setup.png */; };
 		9E3614631941520800CBF65D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E3614621941520800CBF65D /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
@@ -125,6 +128,9 @@
 		2D26D66C1BF34BDA0084EC18 /* Track_Shuffle_On@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Track_Shuffle_On@2x.png"; sourceTree = "<group>"; };
 		2D26D6871BF4AAAC0084EC18 /* NSString+TimeToString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TimeToString.h"; sourceTree = "<group>"; };
 		2D26D6881BF4AAAC0084EC18 /* NSString+TimeToString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TimeToString.m"; sourceTree = "<group>"; };
+		2D26D68E1BF5A4450084EC18 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
+		2D26D6901BF5A4A10084EC18 /* nowplaying.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nowplaying.png; sourceTree = "<group>"; };
+		2D26D6921BF5A52F0084EC18 /* setup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setup.png; sourceTree = "<group>"; };
 		9E3614621941520800CBF65D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -221,6 +227,9 @@
 		2D26D6521BF34B970084EC18 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				2D26D6921BF5A52F0084EC18 /* setup.png */,
+				2D26D6901BF5A4A10084EC18 /* nowplaying.png */,
+				2D26D68E1BF5A4450084EC18 /* home.png */,
 				2D26D6531BF34BDA0084EC18 /* Controls_Pause.png */,
 				2D26D6541BF34BDA0084EC18 /* Controls_Pause@2x.png */,
 				2D26D6551BF34BDA0084EC18 /* Controls_Play.png */,
@@ -321,6 +330,7 @@
 				15055E4C13913F0A003DE49F /* InfoPlist.strings in Resources */,
 				2D26D67B1BF34BDA0084EC18 /* Play_Similar_Music.png in Resources */,
 				2D26D64F1BF3181B0084EC18 /* defaultSong.jpg in Resources */,
+				2D26D6911BF5A4A10084EC18 /* nowplaying.png in Resources */,
 				15055E5513913F0A003DE49F /* MainWindow.xib in Resources */,
 				2D26D6851BF34BDA0084EC18 /* Track_Shuffle_On.png in Resources */,
 				15055E5B13913F0A003DE49F /* RootViewController.xib in Resources */,
@@ -330,9 +340,11 @@
 				2D26D6801BF34BDA0084EC18 /* Track_Repeat_On_Track@2x.png in Resources */,
 				2D26D6511BF3188A0084EC18 /* anam_logo.png in Resources */,
 				2D26D66E1BF34BDA0084EC18 /* Controls_Pause@2x.png in Resources */,
+				2D26D68F1BF5A4450084EC18 /* home.png in Resources */,
 				9E3614631941520800CBF65D /* Default-568h@2x.png in Resources */,
 				2D26D6821BF34BDA0084EC18 /* Track_Repeat_On@2x.png in Resources */,
 				2D26D67E1BF34BDA0084EC18 /* Track_Repeat_Off@2x.png in Resources */,
+				2D26D6931BF5A52F0084EC18 /* setup.png in Resources */,
 				2D26D66F1BF34BDA0084EC18 /* Controls_Play.png in Resources */,
 				2D26D6741BF34BDA0084EC18 /* Controls_Rewind@2x.png in Resources */,
 				2D26D6771BF34BDA0084EC18 /* Controls_Skip.png in Resources */,

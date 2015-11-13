@@ -119,7 +119,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="PlayButton.png" translatesAutoresizingMaskIntoConstraints="NO" id="wDx-re-dTx">
-                                <rect key="frame" x="20" y="47" width="280" height="257"/>
+                                <rect key="frame" x="20" y="51" width="280" height="257"/>
                                 <animations/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LMZ-5o-ddc">
@@ -171,13 +171,6 @@
                                     <action selector="repeatAll:" destination="h5c-6t-uMw" eventType="touchUpInside" id="1WC-Cn-Uf6"/>
                                 </connections>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="100" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AFx-BX-cqO">
-                                <rect key="frame" x="18" y="477" width="284" height="29"/>
-                                <animations/>
-                                <connections>
-                                    <action selector="sliderSetVolumeControl:" destination="h5c-6t-uMw" eventType="valueChanged" id="vxr-jM-uDn"/>
-                                </connections>
-                            </slider>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="100" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zKj-8d-R9s">
                                 <rect key="frame" x="51" y="20" width="219" height="29"/>
                                 <animations/>
@@ -275,11 +268,18 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="100" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AFx-BX-cqO">
+                                <rect key="frame" x="38" y="476" width="245" height="29"/>
+                                <animations/>
+                                <connections>
+                                    <action selector="sliderSetVolumeControl:" destination="h5c-6t-uMw" eventType="valueChanged" id="vxr-jM-uDn"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Nowplay" id="D3k-2d-JOU"/>
+                    <tabBarItem key="tabBarItem" title="Nowplay" image="nowplaying.png" id="D3k-2d-JOU"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="elapsedSlider" destination="zKj-8d-R9s" id="Efe-xr-TIm"/>
@@ -319,7 +319,7 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Setup" id="YT1-dp-39q"/>
+                    <tabBarItem key="tabBarItem" title="Setup" image="setup.png" id="YT1-dp-39q"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="icI-qd-inI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -353,7 +353,7 @@
         <scene sceneID="G0J-t2-sJx">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qA7-4o-8uc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" id="4NK-N3-gYA"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="home.png" selectedImage="home.png" id="4NK-N3-gYA"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ah7-BU-ZO5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -426,5 +426,8 @@
         <image name="Track_Shuffle_On.png" width="20" height="18"/>
         <image name="anam_logo.png" width="185" height="48"/>
         <image name="defaultSong.jpg" width="225" height="225"/>
+        <image name="home.png" width="32" height="32"/>
+        <image name="nowplaying.png" width="34" height="34"/>
+        <image name="setup.png" width="34" height="34"/>
     </resources>
 </document>
