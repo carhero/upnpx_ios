@@ -156,8 +156,18 @@ BOOL bIsSongJustPlayed;
                 
                 //CustomTableViewCell * cell = (CustomTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
                 // assign cell image on main thread
-                cell.imageView.image = img;
+                
+                
+                if(img != nil)
+                {
+                    cell.imageView.image = img;
+                }
+                else
+                {
+                    cell.imageView.image = [UIImage imageNamed:@"defaultSong.jpg"];
+                }
             });
+            
         });
     }
 #endif
