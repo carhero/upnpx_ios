@@ -22,7 +22,10 @@ extern MediaRenderer1Device *mRenderer1;
 extern MediaServer1ItemObject *mItem;
 extern MediaServer1ItemRes *mResource;
 
+extern BOOL bIsSongJustPlayed;
+
 @implementation NowPlayController
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -62,6 +65,21 @@ extern MediaServer1ItemRes *mResource;
     self.label_artist.text = self.globalConfig.label_artist;
     self.label_song.text = self.globalConfig.label_song;
     
+    if(bIsSongJustPlayed)
+    {
+        bIsSongJustPlayed = FALSE;
+        // elapsed timer set
+        updateTimer = TRUE;
+        elapsedTimeCnt = 0;
+        
+        self.elsedTimeLabel.text = [NSString stringFromTime:0];
+        self.totalTimeLabel.text = [NSString stringFromTime:mItem.durationInSeconds];
+        
+        self.elapsedSlider.minimumValue = 0;
+        self.elapsedSlider.maximumValue = mItem.durationInSeconds;
+    }
+    
+    // albumart display
     NSLog(@"self.globalConfig.albumArtUrl : %@", self.globalConfig.albumArtUrl);
     if (self.globalConfig.albumArtUrl != nil)
     {
@@ -86,9 +104,15 @@ extern MediaServer1ItemRes *mResource;
         self.imageAlbumArt.image = [UIImage imageNamed:@"defaultSong.jpg"];
     }
     
-    updateTimer = TRUE;
     
+    if (self.elapsedSlider.value) {
+        return;
+    }
+    
+    // elapsed timer set
+    updateTimer = TRUE;
     elapsedTimeCnt = 0;
+
     self.elsedTimeLabel.text = [NSString stringFromTime:0];
     self.totalTimeLabel.text = [NSString stringFromTime:mItem.durationInSeconds];
 
@@ -104,17 +128,35 @@ extern MediaServer1ItemRes *mResource;
 
 }
 
+
+- (void)nowplayCtrl_setInit
+{
+    updateTimer = TRUE;
+    elapsedTimeCnt = 0;
+    
+    self.elsedTimeLabel.text = [NSString stringFromTime:0];
+    self.totalTimeLabel.text = [NSString stringFromTime:mItem.durationInSeconds];
+    
+    self.elapsedSlider.minimumValue = 0;
+    self.elapsedSlider.maximumValue = mItem.durationInSeconds;
+}
+
+// tick timer with 1sec
 -(void)elapsedTimer:(id)sender
 {
 //    if (!updateTimer) {
 //        return;
 //    }
     
-    if (elapsedTimeCnt <= mItem.durationInSeconds) {
+    if (mItem.durationInSeconds) {
         elapsedTimeCnt += 1;
         
         [self.elapsedSlider setValue:elapsedTimeCnt animated:YES];
         self.elsedTimeLabel.text = [NSString stringFromTime:elapsedTimeCnt];
+    }
+    else
+    {
+        elapsedTimeCnt = 0;
     }
     
     NSLog(@"mResource.durationInSeconds:%d", [mItem durationInSeconds]);

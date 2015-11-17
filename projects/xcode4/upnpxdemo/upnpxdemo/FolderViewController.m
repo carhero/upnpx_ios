@@ -17,6 +17,8 @@
 MediaServer1ItemObject *mItem;
 MediaServer1ItemRes *mResource;
 
+BOOL bIsSongJustPlayed;
+
 @implementation FolderViewController
 
 @synthesize titleLabel;
@@ -206,10 +208,9 @@ MediaServer1ItemRes *mResource;
         [self.globalConfig setString:item.title forOption:@"label_song"];
         
         // to save global class variable
+        bIsSongJustPlayed = TRUE;
         
-        
-        
-        [self.tabBarController setSelectedIndex:1];
+        [self.tabBarController setSelectedIndex:1]; // nowplay page 전환됨.
     }
 }
 
