@@ -11,6 +11,8 @@
 #import "PlayBack.h"
 #import "SoapActionsRenderingControl1.h"
 #import "NSString+TimeToString.h"
+
+//--------------------------------
 #import "NowPlayController.h"
 
 @interface NowPlayController ()
@@ -18,9 +20,9 @@
 
 
 extern MediaRenderer1Device *mRenderer1;
-
 extern MediaServer1ItemObject *mItem;
 extern MediaServer1ItemRes *mResource;
+extern NSMutableArray *mplaylist; // yhcha, for global sync
 
 extern BOOL bIsSongJustPlayed;
 
@@ -60,6 +62,8 @@ extern BOOL bIsSongJustPlayed;
     [super viewWillAppear:YES];
     self.globalConfig = [GlobalDBController getInstance];
     
+    playCtrl = [PlayBack GetInstance];
+    
     // albume, artist, song label display
     self.label_albume.text = self.globalConfig.label_albume;
     self.label_artist.text = self.globalConfig.label_artist;
@@ -83,7 +87,7 @@ extern BOOL bIsSongJustPlayed;
     NSLog(@"self.globalConfig.albumArtUrl : %@", self.globalConfig.albumArtUrl);
     if (self.globalConfig.albumArtUrl != nil)
     {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             // retrive image on global queue
             UIImage * img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.globalConfig.albumArtUrl]]];
             
@@ -159,9 +163,9 @@ extern BOOL bIsSongJustPlayed;
         elapsedTimeCnt = 0;
     }
     
-    NSLog(@"mResource.durationInSeconds:%d", [mItem durationInSeconds]);
-//    NSLog(@"size:%@", [mItem size]);
-    NSLog(@"duration%@", [mItem duration]);
+//    NSLog(@"mResource.durationInSeconds:%d", [mItem durationInSeconds]);
+////    NSLog(@"size:%@", [mItem size]);
+//    NSLog(@"duration%@", [mItem duration]);
 }
 
 
@@ -171,23 +175,79 @@ extern BOOL bIsSongJustPlayed;
 }
 
 
+- (void)updateUiInfomation
+{
+    NSLog(@"updateUiInfomation");
+    PlayBack *Player = [PlayBack GetInstance];
+    MediaServer1ItemObject *item = Player.playlist[Player.pos];
+    
+    // elapsed timer refresh
+    elapsedTimeCnt = 0;
+    self.elsedTimeLabel.text = [NSString stringFromTime:0];
+    self.totalTimeLabel.text = [NSString stringFromTime:item.durationInSeconds];
+    self.elapsedSlider.minimumValue = 0;
+    self.elapsedSlider.maximumValue = mItem.durationInSeconds;
+    
+    // albume, artist, song label display
+    self.label_albume.text = item.album;
+    self.label_artist.text = item.artist;
+    self.label_song.text = item.title;
+    
+    // albumart update
+    if (item.albumArt != nil)
+    {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            // retrive image on global queue
+            UIImage * img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:item.albumArt]]];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                if(img != nil)
+                {
+                    self.imageAlbumArt.image = img;
+                }
+                else{
+                    self.imageAlbumArt.image = [UIImage imageNamed:@"defaultSong.jpg"];
+                }
+                
+            });
+        });
+    }
+    
+}
+
+
 - (IBAction)sliderSetVolumeControl:(UISlider *)sender {
+    
+    PlayBack *Player = [PlayBack GetInstance];
     
     int volumeTrans = sender.value;
     NSString *volume = [NSString stringWithFormat:@"%d",volumeTrans];
-    NSLog(@"volume : %@", volume);
+//    NSLog(@"volume : %@", volume);
     
-    if (mRenderer1 != nil) {
-        [mRenderer1.renderingControl SetVolumeWithInstanceID:@"0" Channel:@"Master" DesiredVolume:volume];
+//    if (mRenderer1 != nil) {
+//        [mRenderer1.renderingControl SetVolumeWithInstanceID:@"0" Channel:@"Master" DesiredVolume:volume];
+//    }
+    if (Player.renderer != nil) {
+        [Player.renderer.renderingControl SetVolumeWithInstanceID:@"0" Channel:@"Master" DesiredVolume:volume];
     }
 }
 
 - (IBAction)playNext:(id)sender {
-    NSLog(@"playNext");
+    PlayBack *Player = [PlayBack GetInstance];
+    NSLog(@"playNext-Current song index:%ld", Player.pos);
+    [[PlayBack GetInstance] Play:Player.playlist position:Player.pos+1];
+    
+    [self updateUiInfomation];
 }
 
 - (IBAction)playPrev:(id)sender {
-    NSLog(@"playPrev");
+    PlayBack *Player = [PlayBack GetInstance];
+    
+    NSLog(@"playPrev-Current song index:%ld", Player.pos);
+    [[PlayBack GetInstance] Play:Player.playlist position:Player.pos-1];
+    
+    [self updateUiInfomation];
 }
 
 - (IBAction)playPause:(id)sender {

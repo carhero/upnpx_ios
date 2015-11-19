@@ -31,6 +31,7 @@
 @property (strong) MediaServer1Device *server;
 @property (weak, readonly) MediaRenderer1Device *renderer;
 @property (strong) NSMutableArray *playlist;
+@property NSInteger pos;
 
 @end
 

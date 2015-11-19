@@ -14,8 +14,9 @@
 #import "PlayBack.h"
 
 
-MediaServer1ItemObject *mItem;
-MediaServer1ItemRes *mResource;
+MediaServer1ItemObject *mItem = nil;
+MediaServer1ItemRes *mResource = nil;
+NSMutableArray *mplaylist = nil;
 
 BOOL bIsSongJustPlayed;
 
@@ -145,7 +146,6 @@ BOOL bIsSongJustPlayed;
     // yhcha, icon image settings
     NSLog(@"item.albumArt = %@", item.albumArt);
 
-#if 1 // 여기를 활성화 하고 Song Play를 시키면 Memory 관련 Fault 가 발생한다.
     if(item.albumArt != nil)
     {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -156,7 +156,6 @@ BOOL bIsSongJustPlayed;
                 
                 //CustomTableViewCell * cell = (CustomTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
                 // assign cell image on main thread
-                
                 
                 if(img != nil)
                 {
@@ -170,7 +169,7 @@ BOOL bIsSongJustPlayed;
             
         });
     }
-#endif
+
     return cell;
     
 }
@@ -179,6 +178,7 @@ BOOL bIsSongJustPlayed;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+//    mplaylist = m_playList; // yhcha, for global sync
     
     MediaServer1BasicObject *item = m_playList[indexPath.row];
     

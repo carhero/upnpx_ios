@@ -15,6 +15,7 @@ static PlayBack *_playback = nil;
 @synthesize renderer;
 @synthesize server;
 @synthesize playlist;
+@synthesize pos;
 
 - (instancetype)init
 {

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "GlobalDBController.h"
+#import "PlayBack.h"
 
 @interface NowPlayController : UIViewController
 {
@@ -16,7 +17,13 @@
     UILabel *label;
     BOOL updateTimer;
     NSInteger elapsedTimeCnt;
+    NSInteger currPlayPosition;
+    
+    PlayBack *playCtrl;
 }
+
+@property (strong, nonatomic)PlayBack *playCtrl;
+
 @property (strong, nonatomic) IBOutlet UIImageView *imageAlbumArt;
 @property GlobalDBController * globalConfig;
 
