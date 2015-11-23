@@ -148,7 +148,7 @@ extern BOOL bIsSongJustPlayed;
 // tick timer with 1sec
 -(void)elapsedTimer:(id)sender
 {
-//    if (!updateTimer) {
+//    if (1) {
 //        return;
 //    }
     
@@ -235,7 +235,7 @@ extern BOOL bIsSongJustPlayed;
 
 - (IBAction)playNext:(id)sender {
     PlayBack *Player = [PlayBack GetInstance];
-    NSLog(@"playNext-Current song index:%ld", Player.pos);
+    NSLog(@"playNext-Current song index:%ld", (long)Player.pos);
     [[PlayBack GetInstance] Play:Player.playlist position:Player.pos+1];
     
     [self updateUiInfomation];
@@ -244,7 +244,7 @@ extern BOOL bIsSongJustPlayed;
 - (IBAction)playPrev:(id)sender {
     PlayBack *Player = [PlayBack GetInstance];
     
-    NSLog(@"playPrev-Current song index:%ld", Player.pos);
+    NSLog(@"playPrev-Current song index:%ld", (long)Player.pos);
     [[PlayBack GetInstance] Play:Player.playlist position:Player.pos-1];
     
     [self updateUiInfomation];
@@ -252,6 +252,22 @@ extern BOOL bIsSongJustPlayed;
 
 - (IBAction)playPause:(id)sender {
     NSLog(@"playPause");
+    
+    PlayBack *Player = [PlayBack GetInstance];
+    // Flag error를 방지하기 위해서 Image icon을 trigger해서 play/pause를 하도록 할 것.
+    
+    [[PlayBack GetInstance] Pause:Player.pos];
+    
+//    if (bPlayPause) {
+//        [[PlayBack GetInstance] Pause:Player.pos];
+//
+//        bPlayPause = 0;
+//    }
+//    else
+//    {
+//        [[PlayBack GetInstance] Play:Player.playlist position:Player.pos];
+//        bPlayPause = 1;
+//    }
 }
 
 - (IBAction)repeatAll:(id)sender {
@@ -263,6 +279,18 @@ extern BOOL bIsSongJustPlayed;
     NSLog(@"shuffle");
 }
 
+- (IBAction)seekSong:(UISlider *)sender {
+    PlayBack *Player = [PlayBack GetInstance];
+    
+    int volumeTrans = sender.value;
+    NSString *seekTarget = [NSString stringFromSeekTime:volumeTrans];
+    
+    // elapsed timer refresh
+    elapsedTimeCnt = sender.value;
+    
+    NSLog(@"seekSong-timeTarget:%@", seekTarget);
+    [Player Seek:seekTarget];
+}
 
 
 

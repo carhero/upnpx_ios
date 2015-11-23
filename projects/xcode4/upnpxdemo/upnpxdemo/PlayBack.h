@@ -24,6 +24,9 @@
 -(void)setRenderer:(MediaRenderer1Device*)rend;
 -(int)Play:(NSMutableArray*)playList position:(NSInteger)position;
 -(int)Play:(NSInteger)position;
+-(int)Stop:(NSInteger)position;
+-(int)Pause:(NSInteger)position;
+-(int)Seek:(NSString*)seekTime;
 
 //BasicUPnPServiceObserver
 -(void)UPnPEvent:(BasicUPnPService*)sender events:(NSDictionary*)events;

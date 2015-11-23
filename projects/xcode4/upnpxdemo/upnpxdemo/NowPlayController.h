@@ -20,6 +20,7 @@
     NSInteger currPlayPosition;
     
     PlayBack *playCtrl;
+    BOOL bPlayPause;
 }
 
 @property (strong, nonatomic)PlayBack *playCtrl;

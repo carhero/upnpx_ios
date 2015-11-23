@@ -114,6 +114,115 @@ static PlayBack *_playback = nil;
 }
 
 
+-(int)Stop:(NSInteger)position{
+    //Do we have a Renderer & a playlist ?
+    if(renderer == nil || playlist == nil){
+        return -1;
+    }
+    
+    if(position >= [playlist count]){
+        position = 0; //Loop
+    }
+    
+    pos = position;
+    
+    //Is it a Media1ServerItem ?
+    if(![playlist[pos] isContainer]){
+        MediaServer1ItemObject *item = playlist[pos];
+        
+        //A few things are missing here:
+        // - Find the right URI based on MIME type, do this via: [item resources], also check render capabilities
+        // = The InstanceID is set to @"0", find the right one via: "ConnetionManager PrepareForConnection"
+        
+        
+        //Find the right URI & Instance ID
+        NSString *uri = [item uri];
+        NSString *iid = @"0";
+        
+        
+        //Stop
+        [[renderer avTransport] SetPlayModeWithInstanceID:iid NewPlayMode:@"NORMAL"];
+        [[renderer avTransport] SetAVTransportURIWithInstanceID:iid CurrentURI:uri CurrentURIMetaData:@""];
+        [[renderer avTransport] StopWithInstanceID:iid];
+        
+    }
+    
+    return 0;
+}
+
+
+-(int)Pause:(NSInteger)position{
+    //Do we have a Renderer & a playlist ?
+    if(renderer == nil || playlist == nil){
+        return -1;
+    }
+    
+    if(position >= [playlist count]){
+        return -1;
+    }
+    
+    pos = position;
+    
+    //Is it a Media1ServerItem ?
+    if(![playlist[pos] isContainer]){
+        MediaServer1ItemObject *item = playlist[pos];
+        
+        //A few things are missing here:
+        // - Find the right URI based on MIME type, do this via: [item resources], also check render capabilities
+        // = The InstanceID is set to @"0", find the right one via: "ConnetionManager PrepareForConnection"
+        
+        
+        //Find the right URI & Instance ID
+        NSString *uri = [item uri];
+        NSString *iid = @"0";
+        
+        
+        //Stop
+        [[renderer avTransport] SetPlayModeWithInstanceID:iid NewPlayMode:@"NORMAL"];
+        [[renderer avTransport] SetAVTransportURIWithInstanceID:iid CurrentURI:uri CurrentURIMetaData:@""];
+        [[renderer avTransport] PauseWithInstanceID:iid];
+        
+    }
+    
+    return 0;
+}
+
+-(int)Seek:(NSString*)seekTime{
+    //Do we have a Renderer & a playlist ?
+//    if(renderer == nil || playlist == nil){
+//        return -1;
+//    }
+//    
+//    if(position >= [playlist count]){
+//        return -1;
+//    }
+//    
+//    pos = position;
+    
+    //Is it a Media1ServerItem ?
+    if(![playlist[pos] isContainer]){
+        MediaServer1ItemObject *item = playlist[pos];
+        
+        //A few things are missing here:
+        // - Find the right URI based on MIME type, do this via: [item resources], also check render capabilities
+        // = The InstanceID is set to @"0", find the right one via: "ConnetionManager PrepareForConnection"
+        
+        
+        //Find the right URI & Instance ID
+        NSString *uri = [item uri];
+        NSString *iid = @"0";
+        
+        
+        //Stop
+        [[renderer avTransport] SetPlayModeWithInstanceID:iid NewPlayMode:@"NORMAL"];
+        [[renderer avTransport] SetAVTransportURIWithInstanceID:iid CurrentURI:uri CurrentURIMetaData:@""];
+        [[renderer avTransport] SeekWithInstanceID:iid Unit:@"REL_TIME" Target:seekTime];
+        
+    }
+    
+    return 0;
+}
+
 //BasicUPnPServiceObserver
 -(void)UPnPEvent:(BasicUPnPService*)sender events:(NSDictionary*)events{
     if(sender == [renderer avTransportService]){

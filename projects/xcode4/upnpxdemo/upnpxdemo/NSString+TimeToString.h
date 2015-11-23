@@ -11,5 +11,5 @@
 @interface NSString (TimeToString)
 
 + (NSString *)stringFromTime:(NSTimeInterval)seconds;
-
++ (NSString *)stringFromSeekTime:(NSTimeInterval)seconds;
 @end
