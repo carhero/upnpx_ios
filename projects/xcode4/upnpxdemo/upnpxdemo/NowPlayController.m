@@ -46,14 +46,6 @@ extern BOOL bIsSongJustPlayed;
     CGSize labelSize1 = [text sizeWithFont:self.label_song.font constrainedToSize:CGSizeMake(280, 240) lineBreakMode:self.label_song];
     self.label_song.frame = CGRectMake(0, 0, 280, labelSize1.height);
     
-//    self.volume_slider
-
-    [NSTimer scheduledTimerWithTimeInterval:1.0
-                                     target:self
-                                   selector:@selector(elapsedTimer:)
-                                   userInfo:nil
-                                    repeats:YES];
-    
     updateTimer = FALSE;
 }
 
@@ -81,6 +73,13 @@ extern BOOL bIsSongJustPlayed;
         
         self.elapsedSlider.minimumValue = 0;
         self.elapsedSlider.maximumValue = mItem.durationInSeconds;
+        
+        // Elapsed time update start
+        self.elapsedTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f
+                                                             target:self
+                                                           selector:@selector(elapsedTimer:)
+                                                           userInfo:nil
+                                                            repeats:YES];
     }
     
     // albumart display
@@ -152,6 +151,13 @@ extern BOOL bIsSongJustPlayed;
 //        return;
 //    }
     
+    if(self.elapsedSlider.value >= self.elapsedSlider.maximumValue)
+    {
+        self.elapsedSlider.value = 0;
+        self.elapsedTimer = nil;
+        return;
+    }
+    
     if (mItem.durationInSeconds) {
         elapsedTimeCnt += 1;
         
@@ -214,7 +220,16 @@ extern BOOL bIsSongJustPlayed;
         });
     }
     
+    if (self.elapsedTimer == nil) {
+        // Elapsed time update start
+        self.elapsedTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f
+                                                             target:self
+                                                           selector:@selector(elapsedTimer:)
+                                                           userInfo:nil
+                                                            repeats:YES];
+    }
 }
+
 
 
 - (IBAction)sliderSetVolumeControl:(UISlider *)sender {

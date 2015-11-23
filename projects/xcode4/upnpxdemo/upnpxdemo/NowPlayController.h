@@ -21,6 +21,8 @@
     
     PlayBack *playCtrl;
     BOOL bPlayPause;
+    
+    NSTimer *elapsedTimer;
 }
 
 @property (strong, nonatomic)PlayBack *playCtrl;
@@ -32,6 +34,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *label_artist;
 @property (weak, nonatomic) IBOutlet UILabel *label_song;
 @property (strong, nonatomic) IBOutlet UISlider *volume_slider;
+@property (weak, nonatomic) IBOutlet NSTimer *elapsedTimer;
 
 @property (strong, nonatomic) IBOutlet UISlider *elapsedSlider;
 @property (strong, nonatomic) IBOutlet UILabel *elsedTimeLabel;
