@@ -28,6 +28,14 @@ extern BOOL bIsSongJustPlayed;
 
 @implementation NowPlayController
 
+@synthesize playCtrl;
+
+@synthesize PlayPauseIcon;
+@synthesize RepeatIcon;
+@synthesize ShuffleIcon;
+
+//@synthesize elapsedTimer;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -115,10 +123,10 @@ extern BOOL bIsSongJustPlayed;
     // elapsed timer set
     updateTimer = TRUE;
     elapsedTimeCnt = 0;
-
+    
     self.elsedTimeLabel.text = [NSString stringFromTime:0];
     self.totalTimeLabel.text = [NSString stringFromTime:mItem.durationInSeconds];
-
+    
     self.elapsedSlider.minimumValue = 0;
     self.elapsedSlider.maximumValue = mItem.durationInSeconds;
 }
@@ -128,7 +136,7 @@ extern BOOL bIsSongJustPlayed;
     [super viewWillDisappear:YES];
     
     updateTimer = FALSE;
-
+    
 }
 
 
@@ -147,9 +155,9 @@ extern BOOL bIsSongJustPlayed;
 // tick timer with 1sec
 -(void)elapsedTimer:(id)sender
 {
-//    if (1) {
-//        return;
-//    }
+    //    if (1) {
+    //        return;
+    //    }
     
     if(self.elapsedSlider.value >= self.elapsedSlider.maximumValue)
     {
@@ -169,9 +177,9 @@ extern BOOL bIsSongJustPlayed;
         elapsedTimeCnt = 0;
     }
     
-//    NSLog(@"mResource.durationInSeconds:%d", [mItem durationInSeconds]);
-////    NSLog(@"size:%@", [mItem size]);
-//    NSLog(@"duration%@", [mItem duration]);
+    //    NSLog(@"mResource.durationInSeconds:%d", [mItem durationInSeconds]);
+    ////    NSLog(@"size:%@", [mItem size]);
+    //    NSLog(@"duration%@", [mItem duration]);
 }
 
 
@@ -238,11 +246,11 @@ extern BOOL bIsSongJustPlayed;
     
     int volumeTrans = sender.value;
     NSString *volume = [NSString stringWithFormat:@"%d",volumeTrans];
-//    NSLog(@"volume : %@", volume);
+    //    NSLog(@"volume : %@", volume);
     
-//    if (mRenderer1 != nil) {
-//        [mRenderer1.renderingControl SetVolumeWithInstanceID:@"0" Channel:@"Master" DesiredVolume:volume];
-//    }
+    //    if (mRenderer1 != nil) {
+    //        [mRenderer1.renderingControl SetVolumeWithInstanceID:@"0" Channel:@"Master" DesiredVolume:volume];
+    //    }
     if (Player.renderer != nil) {
         [Player.renderer.renderingControl SetVolumeWithInstanceID:@"0" Channel:@"Master" DesiredVolume:volume];
     }
@@ -271,22 +279,84 @@ extern BOOL bIsSongJustPlayed;
     PlayBack *Player = [PlayBack GetInstance];
     // Flag error를 방지하기 위해서 Image icon을 trigger해서 play/pause를 하도록 할 것.
     
-    [[PlayBack GetInstance] Pause:Player.pos];
+    //[[PlayBack GetInstance] Pause:Player.pos];
     
-//    if (bPlayPause) {
-//        [[PlayBack GetInstance] Pause:Player.pos];
-//
-//        bPlayPause = 0;
-//    }
-//    else
-//    {
-//        [[PlayBack GetInstance] Play:Player.playlist position:Player.pos];
-//        bPlayPause = 1;
-//    }
+//    self.PlayPauseIcon.imageView.image
+    NSString *currentImageName = [self getFileName:self.PlayPauseIcon.imageView];
+    
+    NSLog(@"currentImageName = %@", currentImageName);
+    
+    self.PlayPauseIcon.imageView.image = [UIImage imageNamed:@"Controls_Pause.png"];
+    
+    //    if (bPlayPause) {
+    //        [[PlayBack GetInstance] Pause:Player.pos];
+    //
+    //        bPlayPause = 0;
+    //    }
+    //    else
+    //    {
+    //        [[PlayBack GetInstance] Play:Player.playlist position:Player.pos];
+    //        bPlayPause = 1;
+    //    }
 }
+
+
+
+
+- (NSString *) getFileName:(UIImageView *)imgView{
+    
+    NSString *imgName = [imgView image].accessibilityIdentifier;
+    
+    NSLog(@"%@",imgName);
+    
+    return imgName;
+    
+}
+
+typedef enum _REP_STAT
+{
+    eREP_NONE    = 0,
+    eREP_ON,
+    eREP_ONE,
+    eMAX
+} REP_STAT;
+
+
+- (void)changeImage:(REP_STAT)sel {
+    
+    switch (sel) {
+        case eREP_NONE:
+        default:
+            self.RepeatIcon.imageView.image = [UIImage imageNamed:@"Track_Repeat_Off.png"];
+            break;
+            
+        case eREP_ON:
+            self.RepeatIcon.imageView.image = [UIImage imageNamed:@"Track_Repeat_On.png"];
+            break;
+            
+        case eREP_ONE:
+            self.RepeatIcon.imageView.image = [UIImage imageNamed:@"Track_Repeat_On_Track.png"];
+            break;
+            
+    }
+    
+}
+
+
 
 - (IBAction)repeatAll:(id)sender {
     NSLog(@"repeatAll");
+    
+    static REP_STAT sel = 0;
+    
+    sel += 1;
+    if(sel >= eMAX)
+    {
+        sel = eREP_NONE;
+    }
+    
+    [self performSelectorOnMainThread : @selector(changeImage:) withObject:nil waitUntilDone:NO];
+//    self.RepeatIcon.imageView.image = [UIImage imageNamed:@"Track_Repeat_On.png"];
 }
 
 - (IBAction)shuffle:(id)sender {
@@ -298,6 +368,11 @@ extern BOOL bIsSongJustPlayed;
     PlayBack *Player = [PlayBack GetInstance];
     
     int volumeTrans = sender.value;
+    
+    if(volumeTrans <= 0)
+    {
+        volumeTrans = 1;
+    }
     NSString *seekTarget = [NSString stringFromSeekTime:volumeTrans];
     
     // elapsed timer refresh

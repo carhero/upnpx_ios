@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="zeh-58-XSM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="zeh-58-XSM">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -33,10 +33,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="anam_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="O8m-B2-niQ">
-                                <rect key="frame" x="0.0" y="20" width="320" height="69"/>
-                                <animations/>
-                            </imageView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bsN-O9-GxB" userLabel="DMSView">
                                 <rect key="frame" x="0.0" y="97" width="320" height="94"/>
                                 <subviews>
@@ -146,9 +142,9 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LMZ-5o-ddc">
                                 <rect key="frame" x="135" y="415" width="50" height="48"/>
                                 <animations/>
-                                <accessibility key="accessibilityConfiguration" label="Play"/>
+                                <accessibility key="accessibilityConfiguration" identifier="PlayPauseButton" label="Play"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" image="Controls_Play.png" backgroundImage="Controls_Pause.png">
+                                <state key="normal" image="Controls_Play.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -181,7 +177,7 @@
                                 <animations/>
                                 <accessibility key="accessibilityConfiguration" label="Skip"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" image="Track_Repeat_On.png">
+                                <state key="normal" image="Track_Repeat_On_Track.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -306,6 +302,9 @@
                     <tabBarItem key="tabBarItem" title="Nowplay" image="nowplaying.png" id="D3k-2d-JOU"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="PlayPauseIcon" destination="LMZ-5o-ddc" id="Gd3-wh-961"/>
+                        <outlet property="RepeatIcon" destination="tym-am-Xwz" id="WJb-Za-itD"/>
+                        <outlet property="ShuffleIcon" destination="7UX-g2-wOi" id="8js-Sz-We4"/>
                         <outlet property="elapsedSlider" destination="zKj-8d-R9s" id="Efe-xr-TIm"/>
                         <outlet property="elsedTimeLabel" destination="guW-70-bQF" id="rDy-4H-KDs"/>
                         <outlet property="imageAlbumArt" destination="wDx-re-dTx" id="9cP-0p-7tn"/>
@@ -446,9 +445,8 @@
         <image name="Controls_Skip.png" width="48" height="48"/>
         <image name="Controls_Skip_Pressed.png" width="48" height="48"/>
         <image name="PlayButton.png" width="500" height="500"/>
-        <image name="Track_Repeat_On.png" width="20" height="18"/>
+        <image name="Track_Repeat_On_Track.png" width="20" height="18"/>
         <image name="Track_Shuffle_On.png" width="20" height="18"/>
-        <image name="anam_logo.png" width="185" height="48"/>
         <image name="defaultSong.jpg" width="225" height="225"/>
         <image name="home.png" width="32" height="32"/>
         <image name="nowplaying.png" width="34" height="34"/>

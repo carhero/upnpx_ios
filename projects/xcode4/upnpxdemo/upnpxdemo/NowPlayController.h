@@ -40,5 +40,10 @@
 @property (strong, nonatomic) IBOutlet UILabel *elsedTimeLabel;
 @property (strong, nonatomic) IBOutlet UILabel *totalTimeLabel;
 
+@property (weak, nonatomic) IBOutlet UIButton *PlayPauseIcon;
+@property (weak, nonatomic) IBOutlet UIButton *RepeatIcon;
+@property (weak, nonatomic) IBOutlet UIButton *ShuffleIcon;
+
+
 
 @end

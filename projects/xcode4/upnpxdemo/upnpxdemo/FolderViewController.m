@@ -73,8 +73,8 @@ BOOL bIsSongJustPlayed;
     
     [[m_device contentDirectory] BrowseWithObjectID:m_rootId BrowseFlag:@"BrowseDirectChildren" Filter:@"*" StartingIndex:@"0" RequestedCount:@"0" SortCriteria:sortCriteria OutResult:outResult OutNumberReturned:outNumberReturned OutTotalMatches:outTotalMatches OutUpdateID:outUpdateID];
     
-    SoapActionsAVTransport1* _avTransport = [m_device avTransport];
-    SoapActionsConnectionManager1* _connectionManager = [m_device connectionManager];
+//    SoapActionsAVTransport1* _avTransport = [m_device avTransport];
+//    SoapActionsConnectionManager1* _connectionManager = [m_device connectionManager];
     
     //The collections are returned as DIDL Xml in the string 'outResult'
     //upnpx provide a helper class to parse the DIDL Xml in usable MediaServer1BasicObject object
@@ -85,10 +85,7 @@ BOOL bIsSongJustPlayed;
     MediaServerBasicObjectParser *parser = [[MediaServerBasicObjectParser alloc] initWithMediaObjectArray:m_playList itemsOnly:NO];
     [parser parseFromData:didl];
     
-    
-    
-    self.navigationController.toolbarHidden = YES;
-    
+    //self.navigationController.toolbarHidden = YES;
     
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0 , 11.0f, self.navigationController.view.frame.size.width, 21.0f)];
     [self.titleLabel setFont:[UIFont fontWithName:@"Verdana" size:18]];
