@@ -44,6 +44,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *RepeatIcon;
 @property (weak, nonatomic) IBOutlet UIButton *ShuffleIcon;
 
-
+- (void)changeImage;
 
 @end

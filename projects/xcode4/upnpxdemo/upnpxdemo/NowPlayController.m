@@ -16,12 +16,15 @@
 #import "NowPlayController.h"
 
 @interface NowPlayController ()
+{
+    
+}
 @end
 
 
-extern MediaRenderer1Device *mRenderer1;
-extern MediaServer1ItemObject *mItem;
-extern MediaServer1ItemRes *mResource;
+//extern MediaRenderer1Device *mRenderer1;
+//extern MediaServer1ItemObject *mItem;
+//extern MediaServer1ItemRes *mResource;
 extern NSMutableArray *mplaylist; // yhcha, for global sync
 
 extern BOOL bIsSongJustPlayed;
@@ -39,6 +42,10 @@ extern BOOL bIsSongJustPlayed;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    PlayBack *Player = [PlayBack GetInstance];
+    MediaServer1ItemObject *item = Player.playlist[Player.pos];
+    
     // Do any additional setup after loading the view.
     NSLog(@"NowPlayController-viewDidLoadCalled");
     
@@ -55,19 +62,40 @@ extern BOOL bIsSongJustPlayed;
     self.label_song.frame = CGRectMake(0, 0, 280, labelSize1.height);
     
     updateTimer = FALSE;
+    
+    // Elapsed time update start
+    self.elapsedTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f
+                                                         target:self
+                                                       selector:@selector(elapsedTimer:)
+                                                       userInfo:nil
+                                                        repeats:YES];
+    if(bIsSongJustPlayed)
+    {
+        bIsSongJustPlayed = FALSE;
+        // elapsed timer set
+        updateTimer = TRUE;
+        elapsedTimeCnt = 0;
+        
+        self.elsedTimeLabel.text = [NSString stringFromTime:0];
+        self.totalTimeLabel.text = [NSString stringFromTime:item.durationInSeconds];
+        
+        self.elapsedSlider.minimumValue = 0;
+        self.elapsedSlider.maximumValue = item.durationInSeconds;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    self.globalConfig = [GlobalDBController getInstance];
     
-    playCtrl = [PlayBack GetInstance];
+    PlayBack *Player = [PlayBack GetInstance];
+    MediaServer1ItemObject *item = Player.playlist[Player.pos];
+    
     
     // albume, artist, song label display
-    self.label_albume.text = self.globalConfig.label_albume;
-    self.label_artist.text = self.globalConfig.label_artist;
-    self.label_song.text = self.globalConfig.label_song;
+    self.label_albume.text = item.album;
+    self.label_artist.text = item.artist;
+    self.label_song.text = item.title;
     
     if(bIsSongJustPlayed)
     {
@@ -77,26 +105,21 @@ extern BOOL bIsSongJustPlayed;
         elapsedTimeCnt = 0;
         
         self.elsedTimeLabel.text = [NSString stringFromTime:0];
-        self.totalTimeLabel.text = [NSString stringFromTime:mItem.durationInSeconds];
+        self.totalTimeLabel.text = [NSString stringFromTime:item.durationInSeconds];
         
         self.elapsedSlider.minimumValue = 0;
-        self.elapsedSlider.maximumValue = mItem.durationInSeconds;
+        self.elapsedSlider.maximumValue = item.durationInSeconds;
         
-        // Elapsed time update start
-        self.elapsedTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f
-                                                             target:self
-                                                           selector:@selector(elapsedTimer:)
-                                                           userInfo:nil
-                                                            repeats:YES];
+        //[self.elapsedTimer invalidate];
     }
     
     // albumart display
-    NSLog(@"self.globalConfig.albumArtUrl : %@", self.globalConfig.albumArtUrl);
-    if (self.globalConfig.albumArtUrl != nil)
+    //NSLog(@"self.globalConfig.albumArtUrl : %@", self.globalConfig.albumArtUrl);
+    if (item.albumArt != nil)
     {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             // retrive image on global queue
-            UIImage * img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.globalConfig.albumArtUrl]]];
+            UIImage * img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:item.albumArt]]];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
@@ -125,10 +148,10 @@ extern BOOL bIsSongJustPlayed;
     elapsedTimeCnt = 0;
     
     self.elsedTimeLabel.text = [NSString stringFromTime:0];
-    self.totalTimeLabel.text = [NSString stringFromTime:mItem.durationInSeconds];
+    self.totalTimeLabel.text = [NSString stringFromTime:item.durationInSeconds];
     
     self.elapsedSlider.minimumValue = 0;
-    self.elapsedSlider.maximumValue = mItem.durationInSeconds;
+    self.elapsedSlider.maximumValue = item.durationInSeconds;
 }
 
 -(void) viewWillDisappear:(BOOL)animated
@@ -142,31 +165,36 @@ extern BOOL bIsSongJustPlayed;
 
 - (void)nowplayCtrl_setInit
 {
+    PlayBack *Player = [PlayBack GetInstance];
+    MediaServer1ItemObject *item = Player.playlist[Player.pos];
+    
     updateTimer = TRUE;
     elapsedTimeCnt = 0;
     
     self.elsedTimeLabel.text = [NSString stringFromTime:0];
-    self.totalTimeLabel.text = [NSString stringFromTime:mItem.durationInSeconds];
+    self.totalTimeLabel.text = [NSString stringFromTime:item.durationInSeconds];
     
     self.elapsedSlider.minimumValue = 0;
-    self.elapsedSlider.maximumValue = mItem.durationInSeconds;
+    self.elapsedSlider.maximumValue = item.durationInSeconds;
 }
 
 // tick timer with 1sec
 -(void)elapsedTimer:(id)sender
 {
-    //    if (1) {
-    //        return;
-    //    }
+    PlayBack *Player = [PlayBack GetInstance];
+    MediaServer1ItemObject *item = Player.playlist[Player.pos];
     
     if(self.elapsedSlider.value >= self.elapsedSlider.maximumValue)
     {
         self.elapsedSlider.value = 0;
-        self.elapsedTimer = nil;
-        return;
+        elapsedTimeCnt = 0;
+        item.durationInSeconds = 0;
+        
+        [self playNext:nil];
+        //self.elapsedTimer = nil;
     }
     
-    if (mItem.durationInSeconds) {
+    if (item.durationInSeconds) {
         elapsedTimeCnt += 1;
         
         [self.elapsedSlider setValue:elapsedTimeCnt animated:YES];
@@ -200,7 +228,7 @@ extern BOOL bIsSongJustPlayed;
     self.elsedTimeLabel.text = [NSString stringFromTime:0];
     self.totalTimeLabel.text = [NSString stringFromTime:item.durationInSeconds];
     self.elapsedSlider.minimumValue = 0;
-    self.elapsedSlider.maximumValue = mItem.durationInSeconds;
+    self.elapsedSlider.maximumValue = item.durationInSeconds;
     
     // albume, artist, song label display
     self.label_albume.text = item.album;
@@ -228,14 +256,7 @@ extern BOOL bIsSongJustPlayed;
         });
     }
     
-    if (self.elapsedTimer == nil) {
-        // Elapsed time update start
-        self.elapsedTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f
-                                                             target:self
-                                                           selector:@selector(elapsedTimer:)
-                                                           userInfo:nil
-                                                            repeats:YES];
-    }
+    
 }
 
 
@@ -246,11 +267,9 @@ extern BOOL bIsSongJustPlayed;
     
     int volumeTrans = sender.value;
     NSString *volume = [NSString stringWithFormat:@"%d",volumeTrans];
-    //    NSLog(@"volume : %@", volume);
     
-    //    if (mRenderer1 != nil) {
-    //        [mRenderer1.renderingControl SetVolumeWithInstanceID:@"0" Channel:@"Master" DesiredVolume:volume];
-    //    }
+    NSLog(@"sliderSetVolumeControl:%@", volume);
+    
     if (Player.renderer != nil) {
         [Player.renderer.renderingControl SetVolumeWithInstanceID:@"0" Channel:@"Master" DesiredVolume:volume];
     }
@@ -321,10 +340,11 @@ typedef enum _REP_STAT
     eMAX
 } REP_STAT;
 
+int selecter;
 
-- (void)changeImage:(REP_STAT)sel {
+- (void)changeImage{
     
-    switch (sel) {
+    switch (selecter) {
         case eREP_NONE:
         default:
             self.RepeatIcon.imageView.image = [UIImage imageNamed:@"Track_Repeat_Off.png"];
@@ -347,15 +367,17 @@ typedef enum _REP_STAT
 - (IBAction)repeatAll:(id)sender {
     NSLog(@"repeatAll");
     
-    static REP_STAT sel = 0;
+//    static REP_STAT sel = 0;
     
-    sel += 1;
-    if(sel >= eMAX)
+    selecter += 1;
+    
+    if(selecter >= eMAX)
     {
-        sel = eREP_NONE;
+        selecter = eREP_NONE;
     }
+    NSLog(@"sel : %d", selecter);
     
-    [self performSelectorOnMainThread : @selector(changeImage:) withObject:nil waitUntilDone:NO];
+//    [self performSelectorOnMainThread : @selector(changeImage:) withObject:nil waitUntilDone:YES];
 //    self.RepeatIcon.imageView.image = [UIImage imageNamed:@"Track_Repeat_On.png"];
 }
 
