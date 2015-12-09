@@ -10,6 +10,8 @@
 
 #import "GlobalDBController.h"
 #import "PlayBack.h"
+#import "PlayStateController.h"
+
 
 @interface NowPlayController : UIViewController
 {
@@ -23,7 +25,12 @@
     BOOL bPlayPause;
     
     NSTimer *elapsedTimer;
+    
+    PlayStateController *sPlayState;
 }
+
+
+@property (strong, nonatomic)PlayStateController *sPlayState;
 
 @property (strong, nonatomic)PlayBack *playCtrl;
 

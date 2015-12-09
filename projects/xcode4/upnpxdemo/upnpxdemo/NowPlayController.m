@@ -82,6 +82,12 @@ extern BOOL bIsSongJustPlayed;
         self.elapsedSlider.minimumValue = 0;
         self.elapsedSlider.maximumValue = item.durationInSeconds;
     }
+    
+    // play status init, should be load routine here from saved database
+    self.sPlayState = [[PlayStateController alloc] init];
+    NSLog(@"sPlayState Init");
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -111,6 +117,8 @@ extern BOOL bIsSongJustPlayed;
         self.elapsedSlider.maximumValue = item.durationInSeconds;
         
         //[self.elapsedTimer invalidate];
+        
+        [self.sPlayState setEPlay:ePLAY_STATUS_PLAY];
     }
     
     // albumart display
@@ -383,7 +391,14 @@ int selecter;
 
 - (IBAction)shuffle:(id)sender {
     
-    NSLog(@"shuffle");
+    self.sPlayState.eShuffle += 1;
+    
+    if(self.sPlayState.eShuffle > (eSHUFFLE_STATUS_MAX-1))
+    {
+        self.sPlayState.eShuffle = eSHUFFLE_STATUS_OFF;
+    }
+    
+    NSLog(@"shuffle-self.sPlayState.eShuffle : %d", self.sPlayState.eShuffle);
 }
 
 - (IBAction)seekSong:(UISlider *)sender {

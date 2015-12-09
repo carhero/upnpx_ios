@@ -27,7 +27,6 @@
 		2D26D6451BF094130084EC18 /* GlobalDBController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D26D6441BF094130084EC18 /* GlobalDBController.m */; };
 		2D26D6471BF2E6A80084EC18 /* PlayButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D26D6461BF2E6A80084EC18 /* PlayButton.png */; };
 		2D26D64A1BF2EC000084EC18 /* TestView1.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D26D6491BF2EC000084EC18 /* TestView1.m */; };
-		2D26D64D1BF2EC120084EC18 /* TestView2.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D26D64C1BF2EC120084EC18 /* TestView2.m */; };
 		2D26D64F1BF3181B0084EC18 /* defaultSong.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2D26D64E1BF3181B0084EC18 /* defaultSong.jpg */; };
 		2D26D6511BF3188A0084EC18 /* anam_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D26D6501BF3188A0084EC18 /* anam_logo.png */; };
 		2D26D66D1BF34BDA0084EC18 /* Controls_Pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D26D6531BF34BDA0084EC18 /* Controls_Pause.png */; };
@@ -60,6 +59,7 @@
 		2D26D68F1BF5A4450084EC18 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D26D68E1BF5A4450084EC18 /* home.png */; };
 		2D26D6911BF5A4A10084EC18 /* nowplaying.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D26D6901BF5A4A10084EC18 /* nowplaying.png */; };
 		2D26D6931BF5A52F0084EC18 /* setup.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D26D6921BF5A52F0084EC18 /* setup.png */; };
+		73883FC81C1886A7001EEF8F /* PlayStateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73883FC71C1886A7001EEF8F /* PlayStateController.m */; };
 		9E3614631941520800CBF65D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E3614621941520800CBF65D /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
@@ -96,8 +96,6 @@
 		2D26D6461BF2E6A80084EC18 /* PlayButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlayButton.png; sourceTree = "<group>"; };
 		2D26D6481BF2EC000084EC18 /* TestView1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestView1.h; sourceTree = "<group>"; };
 		2D26D6491BF2EC000084EC18 /* TestView1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestView1.m; sourceTree = "<group>"; };
-		2D26D64B1BF2EC120084EC18 /* TestView2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestView2.h; sourceTree = "<group>"; };
-		2D26D64C1BF2EC120084EC18 /* TestView2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestView2.m; sourceTree = "<group>"; };
 		2D26D64E1BF3181B0084EC18 /* defaultSong.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = defaultSong.jpg; sourceTree = "<group>"; };
 		2D26D6501BF3188A0084EC18 /* anam_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = anam_logo.png; sourceTree = "<group>"; };
 		2D26D6531BF34BDA0084EC18 /* Controls_Pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Controls_Pause.png; sourceTree = "<group>"; };
@@ -131,6 +129,8 @@
 		2D26D68E1BF5A4450084EC18 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
 		2D26D6901BF5A4A10084EC18 /* nowplaying.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nowplaying.png; sourceTree = "<group>"; };
 		2D26D6921BF5A52F0084EC18 /* setup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setup.png; sourceTree = "<group>"; };
+		73883FC61C1886A7001EEF8F /* PlayStateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayStateController.h; sourceTree = "<group>"; };
+		73883FC71C1886A7001EEF8F /* PlayStateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayStateController.m; sourceTree = "<group>"; };
 		9E3614621941520800CBF65D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -198,10 +198,10 @@
 				2D26D6441BF094130084EC18 /* GlobalDBController.m */,
 				2D26D6871BF4AAAC0084EC18 /* NSString+TimeToString.h */,
 				2D26D6881BF4AAAC0084EC18 /* NSString+TimeToString.m */,
+				73883FC61C1886A7001EEF8F /* PlayStateController.h */,
+				73883FC71C1886A7001EEF8F /* PlayStateController.m */,
 				2D26D6481BF2EC000084EC18 /* TestView1.h */,
 				2D26D6491BF2EC000084EC18 /* TestView1.m */,
-				2D26D64B1BF2EC120084EC18 /* TestView2.h */,
-				2D26D64C1BF2EC120084EC18 /* TestView2.m */,
 				2D26D6521BF34B970084EC18 /* images */,
 				15055E4813913F0A003DE49F /* Supporting Files */,
 			);
@@ -376,7 +376,7 @@
 				2D26D6451BF094130084EC18 /* GlobalDBController.m in Sources */,
 				2D1BCA571BF06AB000E10019 /* SelectController.m in Sources */,
 				155126E613BF4AF90042DEBF /* FolderViewController.m in Sources */,
-				2D26D64D1BF2EC120084EC18 /* TestView2.m in Sources */,
+				73883FC81C1886A7001EEF8F /* PlayStateController.m in Sources */,
 				2D26D6891BF4AAAC0084EC18 /* NSString+TimeToString.m in Sources */,
 				155AC14F1502F87C00817BD9 /* PlayBack.m in Sources */,
 			);
